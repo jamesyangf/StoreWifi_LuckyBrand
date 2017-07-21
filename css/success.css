@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'Feijoa';
+    src: url(../fonts/Feijoa/feijoa-display.tff),
+         url(../fonts/Feijoa/feijoa-medium.tff),
+         url(../fonts/Feijoa/feijoa-mediumitalic.tff);
+}
+@font-face {
+    font-family: 'National';
+    src: url(../fonts/National/National-Regular.otf),
+         url(../fonts/National/National-RegularItalic.otf),
+         url(../fonts/National/National-Semibold.otf),
+         url(../fonts/National/National-SemiboldItalic.otf);
+}
+
+img {
+	vertical-align: middle;
+}
+
+html {
+	color: #222;
+	font-size: 1em;
+	line-height: 1.4;
+    height: 100;
+    overflow: hidden;
+}
+
+body
+{
+	margin: 0;
+}
+
+.Wrapper {
+	position: relative;
+}
+
+/* For the website bg */
+.Wrapper picture img {
+	width: 100%;
+	height: auto;
+}
+
+.ScanForm {
+	background-color: white;
+    border-radius: 2px;
+    bottom: 20%;
+    left: 33%;
+    padding: 20px;
+    position: absolute;
+    right: 33%;
+    top: 20%;
+    height: 300px;
+}
+
+.LogoWrapper {
+	margin: 20px auto;
+	width: 90%;
+}
+
+.LogoWrapper img {
+	height: auto;
+	width: 100%;
+}
+
+.MiddleRow {
+    font-family: 'National', sans-serif;
+    font-size: 30px;
+    margin: 10px auto 0;
+    text-align: center;
+    text-transform: uppercase;
+    color: green;
+    font-weight: bold;
+}
+.LowerRow {
+    font-family: 'Feijoa', serif;
+    font-style: italic;
+    margin: 0;
+    text-align: center;
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+
+    <!-- Place favicon.ico in the faviconFolder directory -->
+    <link rel="apple-touch-icon" sizes="152x152" href="faviconFolder/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="faviconFolder/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="faviconFolder/favicon-16x16.png">
+    <link rel="manifest" href="faviconFolder/manifest.json">
+    <link rel="mask-icon" href="faviconFolder/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    
+      <script type="text/javascript" src="handlebars-1.0.rc.1.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/spotifyLoginCSS.css">
+  </head>
+  <body>
+
+    <div class="Wrapper">
+            <picture class="bgPic">
+                <source media="(min-width: 631px)" srcset="img/SplashPage_Bg.png">
+                <source media="(max-width: 630px)" srcset="img/Mob_SplashPage_Bg.png">
+                <img src="img/SplashPage_Bg" alt="Lucky Brand Scan Splash Page Image">
+            </picture>
+            <div class="ScanForm">
+                <div class="LogoWrapper">
+                    <img src="img/SplashPage_Logo_03.png" alt="Lucky Brand Logo">
+                </div>
+                <p class="MiddleRow">Connecting</p>
+                <!-- Pending Icon  -->
+                <div class="sk-circle">
+                  <div class="sk-circle1 sk-child"></div>
+                  <div class="sk-circle2 sk-child"></div>
+                  <div class="sk-circle3 sk-child"></div>
+                  <div class="sk-circle4 sk-child"></div>
+                  <div class="sk-circle5 sk-child"></div>
+                  <div class="sk-circle6 sk-child"></div>
+                  <div class="sk-circle7 sk-child"></div>
+                  <div class="sk-circle8 sk-child"></div>
+                  <div class="sk-circle9 sk-child"></div>
+                  <div class="sk-circle10 sk-child"></div>
+                  <div class="sk-circle11 sk-child"></div>
+                  <div class="sk-circle12 sk-child"></div>
+                </div>
+
+                <div id="delay"></div>
+
+        </div>
+    </div>
+
+    <style type="text/css">
+        .container {
+            margin: 1em;
+        }
+
+        img {
+            margin-bottom: 1em;
+        }
+    </style>
+
+    <script type="text/javascript">
+        // alert(document.cookie);
+        setTimeout(function(){ document.getElementById("delay").innerHTML = "It is taking awhile, please give it a few more seconds"; }, 30000);
+
+        // Internet Explorer 6-11
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        // Chrome 1+
+        var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+        $(document).ready(function(){
+            $(".fieldYes").hide();
+            $(".fieldNo").hide();
+            $(".bgPic").hide();
+
+            // Determines which browser it is on
+            if(isIE) {
+                document.getElementsByTagName("BODY")[0].setAttribute("background","img/SplashPage_Bg.png");
+                $(".ScanForm").css('margin-top', '230px');
+            } else {
+                $(".bgPic").show();
+            }
+        });
+
+        var eMap = new Map();
+        var url = window.location.href;
+        var sep = ["access_token=", "&token_type"];
+        var res = url.split(new RegExp(sep.join('|'), 'g'));
+
+        var accessToken = res[1];
+
+        function getUserurl(accessToken) {
+            return $.ajax({
+                url: 'https://api.spotify.com/v1/me',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            });
+        }
+
+        function getUserTopTracks(accessToken) {
+            return $.ajax({
+                url: 'https://api.spotify.com/v1/me/top/tracks',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            });
+        }
+            
+        getUserurl(accessToken).then(function(response) {
+            console.log(response);
+            console.log(response.display_name);
+            console.log(response.email);
+
+            eMap.set("email", response.email);
+
+            var currentdate = new Date(); 
+            var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+            eMap.set("dateTime", datetime);    
+
+            webServiceCall();
+        });
+
+        //TODO: Put this inside getUserurl and put webServiceCall() inside this
+        getUserTopTracks(accessToken).then(function(response) {
+            console.log(response);
+
+            var tracksArray = response.items;
+            var numberOfTracks = tracksArray.length;
+
+            console.log("Track: "+response.items[0].name);
+            var artistArray = response.items[0].artists;
+            for(var i = 0; i < artistArray.length; i++) {
+                console.log("   Artist: "+artistArray[i].name);
+            }
+
+            $(".topTrack").val(response.items[0].name);
+            $(".topArtist").val(response.items[0].artists[0].name);
+
+            console.log("Track: "+response.items[1].name);
+            var artistArray = response.items[1].artists;
+            for(var i = 0; i < artistArray.length; i++) {
+                console.log("   Artist: "+artistArray[i].name);
+            }        
+        });
+
+
+        function webServiceCall() {
+            // Web service
+            var data = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\t<LoginInfo xmlns=\"customerEmailxml\">\r\n\t\t<UserSubmission>"+eMap.get("email")+"</UserSubmission>\r\n\t\t<Type>Spotify</Type>\r\n\t\t<Gender></Gender>\r\n\t\t<DateTime>"+eMap.get("dateTime")+"</DateTime>\r\n\t</LoginInfo>";
+            console.log(data);
+
+            var xhr = new XMLHttpRequest();
+            
+            //xhr.open("POST", "http://localhost:9090/ws/rest/email/addCustomerEmail;boomi_auth=bHVja3licmFuZC1OQTJVWUM6MTkyYWQxMTItZTNlOC00YmViLTliMDItMjlmMzMyNTQ5Yzg5", true);
+            xhr.open("POST", "https://test.connect.boomi.com/ws/rest/customerdl/addCustomerDL;boomi_auth=bHVja3licmFuZC1OQTJVWUMuMlVOODdKOjVjYzYxZDFiLThlNmEtNDI2Ni04YmVjLWRjMDM0YWMxMzUxYQ==", true);
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    if(this.status == 200) { // When its successful
+                        console.log(this.responseText);
+                        console.log(this.status);
+
+                        // Save grantUrl to localStorage
+                        //localStorage.setItem("grantUrl", grantUrl);
+                        // on success page do localStorage.getItem("grantUrl");
+
+                        // TODO: Go to successpage
+                        window.location.href = "SuccessPage.html"
+                    } else {
+                        console.log("Failure: " + this.status);
+                        // Print a message saying not successful, and tell them to retry
+                    }
+                }
+            });
+
+            xhr.send(data);
+        }
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,151 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the faviconFolder directory -->
+        <link rel="apple-touch-icon" sizes="152x152" href="faviconFolder/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="faviconFolder/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="faviconFolder/favicon-16x16.png">
+        <link rel="manifest" href="faviconFolder/manifest.json">
+        <link rel="mask-icon" href="faviconFolder/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" type="text/css" href="css/loginCSS.css">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/spot_fb_button.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- FACEBOOK LOGIN SCRIPT -->
+        <div id="fb-root"></div>
+        <script type="text/javascript" src="js/facebook.js"></script>
+
+        <!-- Add your site or application content here -->
+        <div class="Wrapper">
+        
+            <picture class="bgPic">
+                <source media="(min-width: 631px)" srcset="img/SplashPage_Bg.png">
+                <source media="(max-width: 630px)" srcset="img/Mob_SplashPage_Bg.png">
+                <img src="img/SplashPage_Bg" alt="Lucky Brand Public Wi-Fi Splash Page Image">
+            </picture>
+            <div class="EmailForm">
+                <div class="LogoWrapper">
+                    <img src="img/SplashPage_Logo_03.png" alt="Lucky Brand Logo">
+                </div>
+                <p class="MiddleRow">Connecting</p>
+                <!-- Pending Icon  -->
+                <div class="sk-circle">
+                  <div class="sk-circle1 sk-child"></div>
+                  <div class="sk-circle2 sk-child"></div>
+                  <div class="sk-circle3 sk-child"></div>
+                  <div class="sk-circle4 sk-child"></div>
+                  <div class="sk-circle5 sk-child"></div>
+                  <div class="sk-circle6 sk-child"></div>
+                  <div class="sk-circle7 sk-child"></div>
+                  <div class="sk-circle8 sk-child"></div>
+                  <div class="sk-circle9 sk-child"></div>
+                  <div class="sk-circle10 sk-child"></div>
+                  <div class="sk-circle11 sk-child"></div>
+                  <div class="sk-circle12 sk-child"></div>
+                </div>
+            
+                <div id="delay"></div>
+
+                <!-- </form> -->
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+
+        <script type="text/javascript">
+            // alert(document.cookie);
+            setTimeout(function(){ document.getElementById("delay").innerHTML = "It is taking awhile, please give it a few more seconds"; }, 30000);
+
+            // Internet Explorer 6-11
+            var isIE = /*@cc_on!@*/false || !!document.documentMode;
+            // Chrome 1+
+            var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+            $(document).ready(function(){
+                $(".fieldYes").hide();
+                $(".fieldNo").hide();
+                $(".bgPic").hide();
+
+                // Determines which browser it is on
+                if(isIE) {
+                    document.getElementsByTagName("BODY")[0].setAttribute("background","img/SplashPage_Bg.png");
+                    $(".ScanForm").css('margin-top', '230px');
+                } else {
+                    $(".bgPic").show();
+                }
+            });
+
+
+            function webServiceCall() {
+                // Web service
+                var email = document.cookie.replace(/(?:(?:^|.*;\s*)email\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                var gender = document.cookie.replace(/(?:(?:^|.*;\s*)gender\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                var type = document.cookie.replace(/(?:(?:^|.*;\s*)type\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                var dateTime = document.cookie.replace(/(?:(?:^|.*;\s*)dateTime\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                var data = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\t<LoginInfo xmlns=\"customerEmailxml\">\r\n\t\t<UserSubmission>"+email+"</UserSubmission>\r\n\t\t<Type>"+type+"</Type>\r\n\t\t<Gender>"+gender+"</Gender>\r\n\t\t<DateTime>"+dateTime+"</DateTime>\r\n\t</LoginInfo>";
+                console.log(data);
+
+                var xhr = new XMLHttpRequest();
+                
+                //xhr.open("POST", "http://localhost:9090/ws/rest/email/addCustomerEmail;boomi_auth=bHVja3licmFuZC1OQTJVWUM6MTkyYWQxMTItZTNlOC00YmViLTliMDItMjlmMzMyNTQ5Yzg5", true);
+                xhr.open("POST", "https://test.connect.boomi.com/ws/rest/customerdl/addCustomerDL;boomi_auth=bHVja3licmFuZC1OQTJVWUMuMlVOODdKOjVjYzYxZDFiLThlNmEtNDI2Ni04YmVjLWRjMDM0YWMxMzUxYQ==", true);
+
+                xhr.addEventListener("readystatechange", function () {
+                    if (this.readyState === 4) {
+                        if(this.status == 200) { // When its successful
+
+                            if(this.responseText == "Bad Email") {
+                                alert("Adding Email Unsuccessful");
+                            }
+
+                            console.log(this.responseText);
+                            console.log(this.status);
+                            
+                            // TODO: Go to successpage
+                            window.location.href = "SuccessPage.html"
+                        } else {
+                            console.log("Failure: " + this.status);
+                            // Print a message saying not successful, and tell them to retry
+                        }
+                    }
+                });
+
+                xhr.send(data);
+            }
+
+            webServiceCall();
+
+        </script>
+
+    </body>
+</html>
