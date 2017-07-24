@@ -1,29 +1,47 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the faviconFolder directory -->
+        <link rel="apple-touch-icon" sizes="152x152" href="faviconFolder/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="faviconFolder/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="faviconFolder/favicon-16x16.png">
+        <link rel="manifest" href="faviconFolder/manifest.json">
+        <link rel="mask-icon" href="faviconFolder/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="theme-color" content="#ffffff">
 
-    <!-- Place favicon.ico in the faviconFolder directory -->
-    <link rel="apple-touch-icon" sizes="152x152" href="faviconFolder/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="faviconFolder/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="faviconFolder/favicon-16x16.png">
-    <link rel="manifest" href="faviconFolder/manifest.json">
-    <link rel="mask-icon" href="faviconFolder/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="theme-color" content="#ffffff">
-    
-      <script type="text/javascript" src="handlebars-1.0.rc.1.js"></script>
-      <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="css/spotifyLoginCSS.css">
-  </head>
-  <body>
+        <link rel="stylesheet" type="text/css" href="css/loginCSS.css">
 
-    <div class="Wrapper">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/spot_fb_button.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- FACEBOOK LOGIN SCRIPT -->
+        <div id="fb-root"></div>
+        <script type="text/javascript" src="js/facebook.js"></script>
+
+        <!-- Add your site or application content here -->
+        <div class="Wrapper">
+        
             <picture class="bgPic">
                 <source media="(min-width: 631px)" srcset="img/SplashPage_Bg.png">
                 <source media="(max-width: 630px)" srcset="img/Mob_SplashPage_Bg.png">
-                <img src="img/SplashPage_Bg" alt="Lucky Brand Scan Splash Page Image">
+                <img src="img/SplashPage_Bg" alt="Lucky Brand Public Wi-Fi Splash Page Image">
             </picture>
-            <div class="ScanForm">
+            <div class="EmailForm">
                 <div class="LogoWrapper">
                     <img src="img/SplashPage_Logo_03.png" alt="Lucky Brand Logo">
                 </div>
@@ -43,23 +61,17 @@
                   <div class="sk-circle11 sk-child"></div>
                   <div class="sk-circle12 sk-child"></div>
                 </div>
-
+            
                 <div id="delay"></div>
 
+                <!-- </form> -->
+            </div>
         </div>
-    </div>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
 
-    <style type="text/css">
-        .container {
-            margin: 1em;
-        }
-
-        img {
-            margin-bottom: 1em;
-        }
-    </style>
-
-    <script type="text/javascript" src="js/spotifyLogin.js"></script>
-  </body>
+        <script type="text/javascript" src="js/spotifyLogin.js"></script>
+    </body>
 </html>
-

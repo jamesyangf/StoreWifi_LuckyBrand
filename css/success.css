@@ -76,3 +76,38 @@ body
     margin: 0;
     text-align: center;
 }
+
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 631px) and (max-width: 970px) {
+    /* Style adjustments for viewports that meet the condition */
+    .Wrapper picture img {
+        width: 200%;
+    }
+    .ScanForm {
+        left: 25%;
+        right: 25%;
+    }
+}
+@media only screen and (max-width: 630px) {
+    /* Style adjustments for viewports that meet the condition */
+    .Wrapper picture img {
+        width: 130%;
+    }
+    .ScanForm {
+        left: 10%;
+        right: 10%;
+    }
+}
+
+@media print,
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 1.25dppx),
+       (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}

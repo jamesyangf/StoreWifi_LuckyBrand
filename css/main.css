@@ -227,10 +227,6 @@ textarea {
     margin-right: 20%;
 }
 
-#required::-webkit-input-placeholder:after {
-    content: " *";
-    color: red;
-}
 
 /*For the placeholder values*/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -256,6 +252,40 @@ textarea {
     font-size: 12px;
     text-transform: uppercase;
     padding-left: 10px;
+}
+
+
+.centered {
+  float: none;
+  margin: 100px auto;
+}
+.form-group {
+  position: relative;
+}
+.form-group .placeholder {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  color: #B1B1B1;
+  display: none;
+}
+.form-group label {
+  font-wight: normal;
+  color: #B1B1B1;
+}
+.form-group .star {
+  color: red;
+}
+.EmailForm input.form-control {
+    width: 95%;
+    height: 25px;
+}
+.placeholder label {
+    font-family: 'National', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    padding-bottom: 3px;
 }
 
 /* ==========================================================================

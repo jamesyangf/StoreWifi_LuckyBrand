@@ -75,18 +75,15 @@
                     <script type="text/javascript">
                         var fieldMaps = {};
                     </script>
-                    <div class="section" id="row_11571">
-                        <div class="container" id="column_14334">
-                            <div class="email field_block">
-                                <div class="caption">Email Address <span class="required">*</span></div>
-                                <div class="field">
-                                    <span class="email_field">
-                                        <input type="text" class="text field fb-email" size="35" name="32411" value="" placeholder="Email Address *" id="required" />
-                                    </span>
-                                <div class="field_error"></div>
-                                </div>
+
+                        <div class="form-group email-group" id="column_14334">
+                            <div class="placeholder">
+                                <label for="email">Email Address</label>
+                                <span class="star">*</span>
                             </div>
+                            <input type="text" class="form-control" size="35" name="32411" value=""  id="required" />
                         </div>
+
                         <!-- <div class="container" id="column_14335">
                             <div class="field_block" field_id="76517" >
                                 <div id="caption_76517" class="caption">Gender</div>
@@ -159,6 +156,7 @@
 			ga('create', 'UA-103139859-1', 'auto');
 			ga('send', 'pageview');
 		</script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
         <script type="text/javascript">
             // Internet Explorer 6-11
@@ -184,6 +182,23 @@
             });
             var grantUrl=<?php echo json_encode($grant_url); ?>;
             document.cookie = "username="+grantUrl;
+
+            /***********
+            Making placeholder star specifically red 
+            ****************/
+
+            $('.placeholder').click(function() {
+              $(this).siblings('input').focus();
+            });
+            $('.form-control').focus(function() {
+              $(this).siblings('.placeholder').hide();
+            });
+            $('.form-control').blur(function() {
+              var $this = $(this);
+              if ($this.val().length == 0)
+                $(this).siblings('.placeholder').show();
+            });
+            $('.form-control').blur();
 
         </script>
 

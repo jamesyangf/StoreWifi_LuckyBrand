@@ -2,65 +2,67 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<!-- Place favicon.ico in the faviconFolder directory -->
-	    <link rel="apple-touch-icon" sizes="152x152" href="faviconFolder/apple-touch-icon.png">
-	    <link rel="icon" type="image/png" sizes="32x32" href="faviconFolder/favicon-32x32.png">
-	    <link rel="icon" type="image/png" sizes="16x16" href="faviconFolder/favicon-16x16.png">
-	    <link rel="manifest" href="faviconFolder/manifest.json">
-	    <link rel="mask-icon" href="faviconFolder/safari-pinned-tab.svg" color="#5bbad5">
-	    <meta name="theme-color" content="#ffffff">
+    <head>
+    <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico in the faviconFolder directory -->
+        <link rel="apple-touch-icon" sizes="152x152" href="faviconFolder/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="faviconFolder/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="faviconFolder/favicon-16x16.png">
+        <link rel="manifest" href="faviconFolder/manifest.json">
+        <link rel="mask-icon" href="faviconFolder/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="theme-color" content="#ffffff">
 
-		<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/success.css">
-		<!-- <meta http-equiv="refresh" content="3;url=../index.html" /> -->
-	</head>
-	<body>
-		<div class="Wrapper">
-			<picture class="bgPic">
-				<source media="(min-width: 631px)" srcset="img/SplashPage_Bg.png">
-	            <source media="(max-width: 630px)" srcset="img/Mob_SplashPage_Bg.png">
-	            <img src="img/SplashPage_Bg" alt="Lucky Brand Scan Splash Page Image">
-			</picture>
-			<div class="ScanForm">
-				<div class="LogoWrapper">
-					<img src="img/SplashPage_Logo_03.png" alt="Lucky Brand Logo">
-				</div>
-				<p class="MiddleRow">Successfully Connected</p>
-				<p class="LowerRow">Browse the internet now!</p>
-			</div>
-		</div>
-	</body>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/success.css">
+        <!-- <meta http-equiv="refresh" content="3;url=../index.html" /> -->
+    </head>
+    <body>
+        <div class="Wrapper">
+            <picture class="bgPic">
+                <source media="(min-width: 631px)" srcset="img/SplashPage_Bg.png">
+                <source media="(max-width: 630px)" srcset="img/Mob_SplashPage_Bg.png">
+                <img src="img/SplashPage_Bg" alt="Lucky Brand Scan Splash Page Image">
+            </picture>
+            <div class="ScanForm">
+                <div class="LogoWrapper">
+                    <img src="img/SplashPage_Logo_03.png" alt="Lucky Brand Logo">
+                </div>
+                <p class="MiddleRow">Successfully Connected</p>
+                <p class="LowerRow">Browse the internet now!</p>
+            </div>
+        </div>
+    </body>
 </html>
 
 <script type="text/javascript">
-	// Internet Explorer 6-11
+    // Internet Explorer 6-11
     var isIE = /*@cc_on!@*/false || !!document.documentMode;
     // Chrome 1+
     var isChrome = !!window.chrome && !!window.chrome.webstore;
 
-	$(document).ready(function(){
-		$(".fieldYes").hide();
-		$(".fieldNo").hide();
-		$(".sk-circle").hide();
-		$(".bgPic").hide();
+    $(document).ready(function(){
+        $(".fieldYes").hide();
+        $(".fieldNo").hide();
+        $(".sk-circle").hide();
+        $(".bgPic").hide();
 
-		// Determines which browser it is on
-		if(isIE) {
-    		document.getElementsByTagName("BODY")[0].setAttribute("background","img/SplashPage_Bg.png");
-    		$(".ScanForm").css('margin-top', '230px');
-    	} else {
-    		$(".bgPic").show();
-   		}
-	});
+        // Determines which browser it is on
+        if(isIE) {
+            document.getElementsByTagName("BODY")[0].setAttribute("background","img/SplashPage_Bg.png");
+            $(".ScanForm").css('margin-top', '230px');
+        } else {
+            $(".bgPic").show();
+        }
+    });
 
-	// var grantUrl = localStorage.getItem("grantUrl");
-	var grantUrl = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-	console.log(grantUrl);
-	// alert(grantUrl);
+    // var grantUrl = localStorage.getItem("grantUrl");
+    var grantUrl = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    console.log(grantUrl);
+    // alert(grantUrl);
 
-	$(".LowerRow").click(function() {
-		window.location.href = grantUrl;
-	});
+    $(".LowerRow").click(function() {
+        window.location.href = grantUrl;
+    });
 
 </script>
