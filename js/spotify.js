@@ -23,17 +23,16 @@ function login(callback) {
 var loginButton = document.getElementById('btn-login');
 
 loginButton.addEventListener('click', function() {
+    if($("input[name=32415]:checked").val()) {
+        login(function(accessToken) {
+            getUserData(accessToken)
+                .then(function(response) {
+                    // Goes to authentication screen
+                });
 
-    login(function(accessToken) {
-
-        getUserData(accessToken)
-
-            .then(function(response) {
-
-                // Goes to authentication screen
-
-            });
-
-    });
+        });
+    } else {
+        alert("Please agree to the terms");
+    }
 
 });
