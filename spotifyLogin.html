@@ -106,6 +106,24 @@
                 }
             });
         }
+
+        function getUserTopArtists(accessToken) {
+            return $.ajax({
+                url: 'https://api.spotify.com/v1/me/top/artists',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            });
+        }
+
+        function getGenre(accessToken, id) {
+            return $.ajax({
+                url: "https://api.spotify.com/v1/artists/" + id,
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            });
+        }
             
         getUserurl(accessToken).then(function(response) {
             console.log(response);
@@ -121,7 +139,7 @@
                 + currentdate.getHours() + ":"  
                 + currentdate.getMinutes() + ":" 
                 + currentdate.getSeconds();
-            eMap.set("dateTime", datetime);    
+            eMap.set("dateTime", datetime);   
 
             webServiceCall();
         });
@@ -133,20 +151,32 @@
             var tracksArray = response.items;
             var numberOfTracks = tracksArray.length;
 
-            console.log("Track: "+response.items[0].name);
-            var artistArray = response.items[0].artists;
-            for(var i = 0; i < artistArray.length; i++) {
-                console.log("   Artist: "+artistArray[i].name);
+
+            console.log("Number of tracks: "+numberOfTracks);
+
+            if(numberOfTracks > 10) {
+                // Keep it at most 10
+                numberOfTracks = 10;
             }
+            console.log("Top Tracks: ");
+            for(var i = 0; i < numberOfTracks; i++) {
+                console.log(tracksArray[i].name);
+            }
+        });
 
-            $(".topTrack").val(response.items[0].name);
-            $(".topArtist").val(response.items[0].artists[0].name);
+        getUserTopArtists(accessToken).then(function(response) {
 
-            console.log("Track: "+response.items[1].name);
-            var artistArray = response.items[1].artists;
-            for(var i = 0; i < artistArray.length; i++) {
-                console.log("   Artist: "+artistArray[i].name);
-            }        
+            var artistsArray = response.items;
+
+            console.log("Top Artist: " + artistsArray[0].name);
+            console.log("Artist ID: " + artistsArray[0].id);
+            var artistId = artistsArray[0].id;
+
+            getGenre(accessToken, artistId).then(function(response) {
+                var genres = response.genres;
+                var genre = genres[0];
+                console.log("Favorite Genre: " + genre);
+            });
         });
 
 
