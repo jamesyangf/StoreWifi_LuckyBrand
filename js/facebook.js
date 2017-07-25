@@ -43,9 +43,14 @@ function statusChangeCallback(response) {
 // code below.
 function checkLoginState() {
     console.log("Checking login state");
-    FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-    });
+    if($("input[name=32415]:checked").val()) {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    } else {
+            alert("Please agree to the terms");
+    }
+    
 }
 function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
@@ -82,11 +87,11 @@ function testAPI() {
         var type = document.cookie.replace(/(?:(?:^|.*;\s*)type\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         var dateTime = document.cookie.replace(/(?:(?:^|.*;\s*)dateTime\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
-        alert("TEST grant: " + grantUrl);
+        //alert("TEST grant: " + grantUrl);
         console.log("TEST payload: "+ email + type + dateTime + gender);
         
         // localStorage.setItem("payload", data);
-        //window.location.href = "http://publicwifi.luckybrand.com/emailLogin.html";
+        window.location.href = "http://publicwifi.luckybrand.com/emailLogin.html";
 
     });
 }
