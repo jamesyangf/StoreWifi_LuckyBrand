@@ -1,3 +1,8 @@
+        var artists = [];
+        var genres = [];
+        var tracks = [];
+
+
         setTimeout(function(){ document.getElementById("delay").innerHTML = "It is taking awhile, please give it a few more seconds"; }, 30000);
 
         // Internet Explorer 6-11
@@ -70,79 +75,164 @@
             eMap.set("email", response.email);
 
             var currentdate = new Date(); 
-            var datetime = currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() + " @ "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
-            eMap.set("dateTime", datetime);   
+            var datetime = (currentdate.getMonth()+1) + "/" 
+        
+                + currentdate.getDate() + "/"
 
-            webServiceCall();
+                + currentdate.getFullYear()
+
+                + " "  
+
+                + currentdate.getHours() + ":"  
+
+                + currentdate.getMinutes() + ":" 
+
+                + currentdate.getSeconds();
+
+            eMap.set("dateTime", datetime); 
+
+            /* Gets Top Tracks */
+            getUserTopTracks(accessToken).then(function(response) {
+                console.log(response);
+
+                var tracksArray = response.items;
+                var numberOfTracks = tracksArray.length;
+
+
+                console.log("Number of tracks: "+numberOfTracks);
+
+                if(numberOfTracks > 3) {
+                    // Keep it at most 3
+                    numberOfTracks = 3;
+                }
+                console.log("Top 3 Tracks: ");
+                for(var i = 0; i < 3; i++) {
+                    tracks.push(tracksArray[i].name);
+                    console.log(tracksArray[i].name);
+                }
+
+                /* Gets top artist */
+                getUserTopArtists(accessToken).then(function(response) {
+
+                    var artistsArray = response.items;
+                    var i;
+
+                    console.log("Top 3 Artist: ");
+                    for(i = 0; i < 3; i++) {
+                        artists.push(artistsArray[i].name);
+                        console.log((i+1) + " Artist: " + artistsArray[i].name);
+                        console.log((i+1) + " Artist ID: " + artistsArray[i].id);
+                        var artistId = artistsArray[i].id;
+
+                        var temp = [];
+
+                        /* Gets top Genre */
+                        var test = getGenre(accessToken, artistId).then(function(response) {
+                            var genresArray = response.genres;
+                            temp.push(genresArray[0]);
+                            console.log("Favorite Genre: " + genresArray[0]);
+                            return temp;
+                        });
+
+                        console.log("THETEST: " + test);
+                        genres = temp;
+
+                        console.log("IN GENRE: " + genres);
+                    }
+
+                    console.log("WHATTT YOU: "+ eMap.get("genre1"));
+
+                    if(i == 3) {
+                        webServiceCall();
+                        console.log(i);
+                        console.log(genres);
+                        console.log(artists);
+                    }
+                });  
+            });
         });
 
         //TODO: Put this inside getUserurl and put webServiceCall() inside this
-        getUserTopTracks(accessToken).then(function(response) {
-            console.log(response);
+        // getUserTopTracks(accessToken).then(function(response) {
+        //     console.log(response);
 
-            var tracksArray = response.items;
-            var numberOfTracks = tracksArray.length;
+        //     var tracksArray = response.items;
+        //     var numberOfTracks = tracksArray.length;
 
 
-            console.log("Number of tracks: "+numberOfTracks);
+        //     console.log("Number of tracks: "+numberOfTracks);
 
-            if(numberOfTracks > 10) {
-                // Keep it at most 10
-                numberOfTracks = 10;
-            }
-            console.log("Top Tracks: ");
-            var tracks = [];
-            for(var i = 0; i < numberOfTracks; i++) {
-            	tracks.push(tracksArray[i].name);
-                console.log(tracksArray[i].name);
-            }
-        });
+        //     if(numberOfTracks > 3) {
+        //         // Keep it at most 3
+        //         numberOfTracks = 3;
+        //     }
+        //     console.log("Top Tracks: ");
+            
+        //     for(var i = 0; i < 3; i++) {
+        //     	tracks.push(tracksArray[i].name);
+        //         console.log(tracksArray[i].name);
+        //     }
+        // });
 
-        getUserTopArtists(accessToken).then(function(response) {
+        // getUserTopArtists(accessToken).then(function(response) {
 
-            var artistsArray = response.items;
+        //     var artistsArray = response.items;
 
-            console.log("Top Artist: " + artistsArray[0].name);
-            console.log("Artist ID: " + artistsArray[0].id);
-            var artistId = artistsArray[0].id;
+        //     for(var i = 0; i < 3; i++) {
+        //         artists.push(artistsArray[i].name);
+        //         console.log((i+1) + " Artist: " + artistsArray[i].name);
+        //         console.log((i+1) + " Artist ID: " + artistsArray[i].id);
+        //         var artistId = artistsArray[i].id;
 
-            getGenre(accessToken, artistId).then(function(response) {
-                var genres = response.genres;
-                var genre = genres[0];
-                console.log("Favorite Genre: " + genre);
-            });
-        });
+        //         getGenre(accessToken, artistId).then(function(response) {
+        //             var genres = response.genres;
+        //             genres.push(genres[0]);
+        //             console.log("Favorite Genre: " + genres[0]);
+        //         });
+        //     }
+        // });
 
 
         function webServiceCall() {
             // Web service
-            var data = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\t<LoginInfo xmlns=\"customerEmailxml\">\r\n\t\t<UserSubmission>"+eMap.get("email")+"</UserSubmission>\r\n\t\t<Type>Spotify</Type>\r\n\t\t<Gender></Gender>\r\n\t\t<DateTime>"+eMap.get("dateTime")+"</DateTime>\r\n\t</LoginInfo>";
+            var client_ip = document.cookie.replace(/(?:(?:^|.*;\s*)client_ip\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            var client_mac = document.cookie.replace(/(?:(?:^|.*;\s*)client_mac\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            var node_id = document.cookie.replace(/(?:(?:^|.*;\s*)node_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            var node_mac = document.cookie.replace(/(?:(?:^|.*;\s*)node_mac\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            var gateway_id = document.cookie.replace(/(?:(?:^|.*;\s*)gateway_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            console.log("DEBUG: " + artists);
+            console.log("DEBUG: " + genres);
+            var data = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\t<LoginInfo xmlns=\"customerEmailxml\">\r\n\t\t<UserSubmission>"+eMap.get("email")+"</UserSubmission>\r\n\t\t<Type>Spotify</Type>\r\n\t\t<DateTime>"+eMap.get("dateTime")+"</DateTime>\r\n\t\t<ClientIp>"+client_ip+"</ClientIp>\r\n\t\t<ClientMac>"+client_mac+"</ClientMac>\r\n\t\t<NodeId>"+node_id+"</NodeId>\r\n\t\t<NodeMac>"+node_mac+"</NodeMac>\r\n\t\t<GatewayId>"+gateway_id+"</GatewayId>\r\n\t\t<Artist1>"+artists[0]+"</Artist1>\r\n\t\t<Artist2>"+artists[1]+"</Artist2>\r\n\t\t<Artist3>"+artists[2]+"</Artist3>\r\n\t\t<Genre1>"+eMap.get("genre1")+"</Genre1>\r\n\t\t<Genre2>"+eMap.get("genre2")+"</Genre2>\r\n\t\t<Genre3>"+eMap.get("genre3")+"</Genre3>\r\n\t\t<Track1>"+tracks[0]+"</Track1>\r\n\t\t<Track2>"+tracks[1]+"</Track2>\r\n\t\t<Track3>"+tracks[2]+"</Track3>\r\n\t</LoginInfo>";
             console.log(data);
+
+            var granturl = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
             var xhr = new XMLHttpRequest();
             
-            //xhr.open("POST", "http://localhost:9090/ws/rest/email/addCustomerEmail;boomi_auth=bHVja3licmFuZC1OQTJVWUM6MTkyYWQxMTItZTNlOC00YmViLTliMDItMjlmMzMyNTQ5Yzg5", true);
-            xhr.open("POST", "https://test.connect.boomi.com/ws/rest/customerdl/addCustomerDL;boomi_auth=bHVja3licmFuZC1OQTJVWUMuMlVOODdKOjVjYzYxZDFiLThlNmEtNDI2Ni04YmVjLWRjMDM0YWMxMzUxYQ==", true);
+            xhr.open("POST", "http://66.80.179.115:9090/ws/rest/email/addCustomerEmail;boomi_auth=bHVja3licmFuZC1OQTJVWUM6MTkyYWQxMTItZTNlOC00YmViLTliMDItMjlmMzMyNTQ5Yzg5", true);
 
             xhr.addEventListener("readystatechange", function () {
-                if (this.readyState === 4) {
-                    if(this.status == 200) { // When its successful
-                        console.log(this.responseText);
-                        console.log(this.status);
+                    if (this.readyState === 4) {
+                        if(this.status == 200) { // When its successful
 
-                        // TODO: Go to successpage
-                        window.location.href = "SuccessPage.html"
-                    } else {
-                        console.log("Failure: " + this.status);
-                        // Print a message saying not successful, and tell them to retry
+                            if(this.responseText == "Bad Email") {
+                                alert("Adding Email Unsuccessful");
+                                window.location.href = "index.phtml";
+                            } else {
+
+                                console.log(this.responseText);
+                                console.log(this.status);
+                                
+                                // Go to successpage
+                               //window.location.href = granturl;
+ 
+                            }
+                        } else {
+                            console.log("Failure: " + this.status);
+                            // Print a message saying not successful, and tell them to retry
+                        }
                     }
-                }
-            });
+                });
 
             xhr.send(data);
         }

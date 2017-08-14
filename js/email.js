@@ -64,11 +64,13 @@ $(".connect").click(function() {
 
         var currentdate = new Date(); 
 
-        var datetime = currentdate.getDate() + "/"
+        var datetime = (currentdate.getMonth()+1) + "/" 
+        
+            + currentdate.getDate() + "/"
 
-            + (currentdate.getMonth()+1)  + "/" 
+            + currentdate.getFullYear()
 
-            + currentdate.getFullYear() + " @ "  
+            + " "  
 
             + currentdate.getHours() + ":"  
 
@@ -87,28 +89,6 @@ $(".connect").click(function() {
         document.cookie = "dateTime="+dataMap.get("dateTime");
 
         document.cookie = "type=Email";
-
-        document.cookie = "gender="+dataMap.get("gender");
-
-
-
-
-
-        var grantUrl = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-        var email = document.cookie.replace(/(?:(?:^|.*;\s*)email\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-        var gender = document.cookie.replace(/(?:(?:^|.*;\s*)gender\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-        var type = document.cookie.replace(/(?:(?:^|.*;\s*)type\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-        var dateTime = document.cookie.replace(/(?:(?:^|.*;\s*)dateTime\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-       
-
-        // alert("TEST grant: " + grantUrl);
-
-        // alert("TEST payload: "+ email + type + dateTime + gender);
 
 
 

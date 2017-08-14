@@ -29,7 +29,8 @@
                     <img src="img/SplashPage_Logo_03.png" alt="Lucky Brand Logo">
                 </div>
                 <p class="MiddleRow">Successfully Connected</p>
-                <p class="LowerRow">Browse the internet now!</p>
+                <input class="LowerRow" type="submit" >Browse the internet now!</input>
+                <div id="wow">HEYYYYY</div>
             </div>
         </div>
     </body>
@@ -59,10 +60,21 @@
     // var grantUrl = localStorage.getItem("grantUrl");
     var grantUrl = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     console.log(grantUrl);
-    // alert(grantUrl);
+     //alert(grantUrl);
+     alert("WOW "+grantUrl);
+     $("#wow").html(grantUrl);
 
     $(".LowerRow").click(function() {
         window.location.href = grantUrl;
+        alert("HEY" + grantUrl);
     });
+
+    $(document).on('click touchstart', '.LowerRow', function() {
+        window.location.href = grantUrl;
+        alert("HEY" + grantUrl);
+    });
+
+    setTimeout(function(){ alert(grantUrl); }, 5000);
+
 
 </script>

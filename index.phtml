@@ -12,8 +12,11 @@
 
   // The following parameters may be used for tracking purposes. They are not necessary for authentication.
   $node_id = urldecode($_GET['node_id']);
+  $node_mac = urldecode($_GET['node_mac']);
   $gateway_id = urldecode($_GET['gateway_id']);
   $client_ip = urldecode($_GET['client_ip']);
+  $client_mac = urldecode($_GET['client_mac']);
+
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -180,8 +183,23 @@
                     $(".bgPic").show();
                 }
             });
+
+            var client_ip = <?php echo json_encode($client_ip); ?>;
+            var client_mac = <?php echo json_encode($client_mac); ?>;
+            var node_id = <?php echo json_encode($node_id); ?>;
+            var node_mac = <?php echo json_encode($node_mac); ?>;
+            var gateway_id = <?php echo json_encode($gateway_id); ?>;
+
             var grantUrl=<?php echo json_encode($grant_url); ?>;
-            document.cookie = "username="+grantUrl;
+            document.cookie = "username="+grantUrl; // idk why i called it username 
+
+            document.cookie = "client_ip="+client_ip;
+            document.cookie = "client_mac="+client_mac;
+            document.cookie = "node_id="+node_id;
+            document.cookie = "node_mac="+node_mac;
+            document.cookie = "gateway_id="+gateway_id;
+
+
 
             /***********
             Making placeholder star specifically red 
