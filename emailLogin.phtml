@@ -1,4 +1,3 @@
-
 <?php
     $hostname="localhost:3306";
     $username="jyang";
@@ -26,7 +25,7 @@
 
         // Check if there are dups in the db
         if($num_rows == 0) { // if no dup add it
-            $query = "INSERT INTO $dbname.$tablename (UserSubmission, Type, Date_Time, ClientIp, ClientMac, NodeId, NodeMac, GatewayId, Artist1, Artist2, Artist3, Genre1, Genre2, Genre3, Track1, Track2, Track3) VALUES ('$user_submission', '$type','$date_time', '$client_ip', '$client_mac', '$node_id', '$node_mac', '$gateway_id', "", "", "", "", "", "", "", "", "")";
+            $query = "INSERT INTO $dbname.$tablename (UserSubmission, Type, Date_Time, ClientIp, ClientMac, NodeId, NodeMac, GatewayId, Artist1, Artist2, Artist3, Genre1, Genre2, Genre3, Track1, Track2, Track3) VALUES ('$user_submission', '$type','$date_time', '$client_ip', '$client_mac', '$node_id', '$node_mac', '$gateway_id', '', '', '', '', '', '', '', '', '')";
                     
             $result = mysql_query($query) or die ("<html><script language='JavaScript'>alert('Query Failed.'),history.go(-1)</script></html>");
         } 
@@ -37,7 +36,6 @@
     mysql_close($con);
     
 ?>
-
 <!doctype html>
 <html class="no-js" lang="">
     <head>

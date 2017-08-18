@@ -28,77 +28,105 @@ function validateForm() {
 
     }
 
-    return true;
+    var dataMap = new Map();
 
+    // Put all the fields in 
+    console.log($("input[name=32411]").val());
+    dataMap.set("email", $("input[name=32411]").val());
+
+
+    console.log($("input[name=32414]:checked").val());
+    dataMap.set("gender", $("input[name=32414]:checked").val());
+
+
+    var currentdate = new Date(); 
+    var datetime = (currentdate.getMonth()+1) + "/" 
+        
+         + currentdate.getDate() + "/"
+
+        + currentdate.getFullYear()
+
+        + " "  
+
+        + currentdate.getHours() + ":"  
+
+        + currentdate.getMinutes() + ":" 
+
+        + currentdate.getSeconds();
+
+    console.log(datetime);
+    dataMap.set("dateTime", datetime);
+
+    document.cookie = "email="+dataMap.get("email");
+    document.cookie = "dateTime="+dataMap.get("dateTime");
+    document.cookie = "type=Email";
+
+    return true;
 }
 
 
 
-$(".connect").click(function() {
+// $(".connect").click(function() {
 
-    var xhr = new XMLHttpRequest();
+//     var dataMap = new Map();
 
-    var dataMap = new Map();
-
-
-
-    var cont = validateForm();
+//     var cont = validateForm();
 
 
 
-    if(cont == true) {
+//     if(cont == true) {
 
-        // Put all the fields in 
+//         // Put all the fields in 
 
-        console.log($("input[name=32411]").val());
+//         console.log($("input[name=32411]").val());
 
-        dataMap.set("email", $("input[name=32411]").val());
-
-
-
-        console.log($("input[name=32414]:checked").val());
-
-        dataMap.set("gender", $("input[name=32414]:checked").val());
+//         dataMap.set("email", $("input[name=32411]").val());
 
 
 
-        var currentdate = new Date(); 
+//         console.log($("input[name=32414]:checked").val());
 
-        var datetime = (currentdate.getMonth()+1) + "/" 
+//         dataMap.set("gender", $("input[name=32414]:checked").val());
+
+
+
+//         var currentdate = new Date(); 
+
+//         var datetime = (currentdate.getMonth()+1) + "/" 
         
-            + currentdate.getDate() + "/"
+//             + currentdate.getDate() + "/"
 
-            + currentdate.getFullYear()
+//             + currentdate.getFullYear()
 
-            + " "  
+//             + " "  
 
-            + currentdate.getHours() + ":"  
+//             + currentdate.getHours() + ":"  
 
-            + currentdate.getMinutes() + ":" 
+//             + currentdate.getMinutes() + ":" 
 
-            + currentdate.getSeconds();
+//             + currentdate.getSeconds();
 
-        console.log(datetime);
+//         console.log(datetime);
 
-        dataMap.set("dateTime", datetime);
-
-
-
-        document.cookie = "email="+dataMap.get("email");
-
-        document.cookie = "dateTime="+dataMap.get("dateTime");
-
-        document.cookie = "type=Email";
+//         dataMap.set("dateTime", datetime);
 
 
 
-        window.location.href = "http://publicwifi.luckybrand.com/emailLogin.html";
+//         document.cookie = "email="+dataMap.get("email");
 
-        window.open("http://publicwifi.luckybrand.com/emailLogin.html", "_self");
+//         document.cookie = "dateTime="+dataMap.get("dateTime");
 
-    }
+//         document.cookie = "type=Email";
 
-});
+
+
+//         window.location.href = "http://publicwifi.luckybrand.com/emailLogin.html";
+
+//         window.open("http://publicwifi.luckybrand.com/emailLogin.html", "_self");
+
+//     }
+
+// });
 
 
 

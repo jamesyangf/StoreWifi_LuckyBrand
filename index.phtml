@@ -68,13 +68,20 @@
                 <p class="MiddleRow">Free Wi-Fi</p>
                 <p class="BottomRow">With email sign-up</p>
                 <br>
-                <!-- <form action="http://bm5150.com/public/webform/process/" method="post"> -->
+                <form onsubmit="return validateForm()" action="emailLogin.phtml" method="post">
                     <input type="hidden" name="fid" value="ahwtnn08oquhocfjsqa0xacaqsypt" />
                     <input type="hidden" name="sid" value="62170228a0d96469816719af91803b7a" />
                     <input type="hidden" name="delid" value="" />
                     <input type="hidden" name="subid" value="" />
                     <input type="hidden" name="td" value="" />
                     <input type="hidden" name="formtype" value="addcontact" />
+                    <input type="hidden" name="nodeId" value=<?php echo json_encode($node_id);?> />
+                    <input type="hidden" name="nodeMac" value=<?php echo json_encode($node_mac);?> />
+                    <input type="hidden" name="clientIp" value=<?php echo json_encode($client_ip);?> />
+                    <input type="hidden" name="clientMac" value=<?php echo json_encode($client_mac);?> />
+                    <input type="hidden" name="gatewayId" value=<?php echo json_encode($gateway_id);?> />
+                    <input type="hidden" name="date_time" value="" />
+
                     <script type="text/javascript">
                         var fieldMaps = {};
                     </script>
@@ -132,7 +139,7 @@
                         <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div>
                     </div>
 
-                <!-- </form> -->
+                </form>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -162,6 +169,20 @@
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
         <script type="text/javascript">
+
+            // Sets the time
+            var currentdate = new Date(); 
+
+            var datetime = (currentdate.getMonth()+1) + "/"
+                + currentdate.getDate()  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+
+                + currentdate.getMinutes() + ":" 
+
+                + currentdate.getSeconds();
+            $("input[name=date_time]").val(datetime);
+
             // Internet Explorer 6-11
             var isIE = /*@cc_on!@*/false || !!document.documentMode;
             // Chrome 1+
